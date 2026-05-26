@@ -6,104 +6,167 @@
 
 using namespace std;
 
-void AddMatrices() 
+void AddMatrices(vector<Matrix>& list)
 {
-	cout << endl;
-	cout << "How many matrices to add together?" << endl;
-	size_t matrixCount;
-	cin >> matrixCount;
-
-	while (matrixCount < 2)
+	if (list.size() == 0)
 	{
-		cout << "\nEnter valid matrix count for addition (2+)" << endl;
-		cin >> matrixCount;
+		cout << "\nDatabase is currently empty." << endl;
+		return;
 	}
 
-	cout << "\nHow many rows in the matrices?" << endl;
-	size_t rows;
-	cin >> rows;
+	size_t addendCount;
+	vector<size_t> addendIndexList;
+	size_t addendIndex;
+	bool dimEqual = true;
 
-	while (rows < 1)
+	cout << "\nEnter how many matrices to add: " << endl;
+	cin >> addendCount;
+
+	while (addendCount < 2)
 	{
-		cout << "\nEnter valid number of rows" << endl;
-		cin >> rows;
+		cout << "\nEnter a valid addend count (2+):" << endl;
+		cin >> addendCount;
 	}
 
-	cout << "\nHow many columns in the matrices" << endl;
-	size_t columns;
-	cin >> columns;
+	cout << "\nEnter the position of " << addendCount
+		<< " matrices in the database to sum:" << endl;
 
-	while (columns < 1)
+	for (size_t i = 0; i < addendCount; ++i)
 	{
-		cout << "\nEnter valid number of columns" << endl;
-		cin >> columns;
-	}
-
-	// Create sum matrix and add each matrix onto it
-	Matrix sum(rows, columns);
-
-	for (size_t i = 1; i <= matrixCount; ++i)
-	{
-		Matrix temp(rows, columns);
-
-		cout << "\nFor matrix " << i << ", enter " 
-			 << rows * columns << " entries." << endl;
-
-		temp.New();
-
-		for (size_t i = 1; i <= rows; ++i)
+		cin >> addendIndex;
+		while (addendIndex < 1 || addendIndex > list.size())
 		{
-			for (size_t j = 1; j <= columns; ++j)
+			if (list.size() == 1)
 			{
-				sum(i, j) += temp(i, j);
+				cout << "\nEnter a valid position (1):" << endl;
+			}
+			else
+			{
+				cout << "\nEnter a valid position (1-"
+					<< list.size() << "):" << endl;
+			}
+			cin >> addendIndex;
+		}
+
+		addendIndexList.push_back(addendIndex);
+	}
+
+	size_t rowDim = list[addendIndexList[0] - 1].GetRows();
+	size_t colDim = list[addendIndexList[0] - 1].GetColumns();
+
+	Matrix sum(rowDim, colDim);
+
+	for (size_t k = 0; k < addendCount; ++k)
+	{
+		if (rowDim != list[addendIndexList[k] - 1].GetRows() ||
+			colDim != list[addendIndexList[k] - 1].GetColumns())
+		{
+			cout << "\nDimensions of matrices are not equal" 
+				 << " and matrices cannot be added." << endl;
+
+			return;
+		}
+		for (size_t i = 1; i <= rowDim; ++i)
+		{
+			for (size_t j = 1; j <= colDim; ++j)
+			{
+				sum(i, j) += list[addendIndexList[k] - 1](i, j);
 			}
 		}
 	}
 
-	// Display sum matrix
-	cout << "\nSum of matrices: " << endl;
-	for (size_t i = 1; i <= rows; ++i)
+	cout << "\nSum of matrices:" << endl;
+	for (size_t i = 1; i <= rowDim; ++i)
 	{
-		for (size_t j = 1; j <= columns; ++j)
+		for (size_t j = 1; j <= colDim; ++j)
 		{
 			cout << sum(i, j) << ' ';
 		}
 		cout << endl;
 	}
 
+	size_t choice;
+
+	cout << "\nEnter number for what to do with matrix sum:"
+		 << "\n1. Discard"
+		 << "\n2. Add to database"
+		 << "\n3. Replace matrix in database"
+		 << endl;
+
+	cin >> choice;
+
+	while (choice != 1 && choice != 2 && choice != 3)
+	{
+		cout << "\nEnter a valid integer 1-3" << endl;
+		cin >> choice;
+	}
+
+	if (choice == 1) { return; }
+	else if (choice == 2)
+	{
+		list.push_back(sum);
+
+		cout << "\nMatrix sum added to position "
+			 << list.size() << " of databse." << endl;
+
+		return;
+	}
+	else if (choice == 3)
+	{
+		size_t replaceIndex;
+		cout << "\n Enter which position to replace in database:" << endl;
+		cin >> replaceIndex;
+
+		while (replaceIndex < 1 || replaceIndex > list.size())
+		{
+			if (list.size() == 1)
+			{
+				cout << "\nEnter a valid position (1):" << endl;
+			}
+			else
+			{
+				cout << "\nEnter a valid position (1-"
+					<< list.size() << "):" << endl;
+			}
+			cin >> replaceIndex;
+		}
+
+		list[replaceIndex - 1] = sum;
+
+	}
 }
 
-void MultiplyMatrices() 
+void MultiplyMatrices(vector<Matrix>& list)
 {
 
 }
 
-void RREF()
+void RREF(vector<Matrix>& list)
 {
 
 }
 
-void Determinant()
+void Determinant(vector<Matrix>& list)
 {
 
 }
 
-void Nonsingular()
+void Nonsingular(vector<Matrix>& list)
 {
 
 }
 
-void Geometric()
+void Geometric(vector<Matrix>& list)
 {
 
 }
 
-void Eigen()
+void Eigen(vector<Matrix>& list)
 {
 
 }
 
-void Diagonalize()
+void Diagonalize(vector<Matrix>& list)
 {
 
 }

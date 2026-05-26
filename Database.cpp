@@ -14,7 +14,7 @@ void Database(vector<Matrix>& list)
 
 	while (databaseRunning == true)
 	{
-		cout << "\nEnter number based on action needed:" <<
+		cout << "\nDatabase Menu \nEnter number based on action needed:" <<
 			"\n" << "0. Go back to menu"
 			"\n" << "1. Add a matrix to database" <<
 			"\n" << "2. Remove a matrix from the database" <<
@@ -26,7 +26,7 @@ void Database(vector<Matrix>& list)
 		while (choice != 0 && choice != 1 && choice != 2 &&
 			   choice != 3 && choice != 4)
 		{
-			cout << "Enter a valid integer 0-4";
+			cout << "Enter a valid integer 0-4" << endl;
 			cin >> choice;
 		}
 
@@ -122,7 +122,7 @@ void ViewMatrix(vector<Matrix>& list)
 
 	cout << "\nTotal matrices in list: " << list.size() << endl;
 	cout << "Enter the position of the matrix to view "
-		 <<  "or 0 to return to the database menu : " << endl;
+		 <<  "or 0 to return to the database menu: " << endl;
 
 	cin >> viewChoice;
 	while (viewChoice < 0 || viewChoice > list.size())
@@ -143,7 +143,7 @@ void ViewMatrix(vector<Matrix>& list)
 	if (viewChoice == 0) { return; }
 	else
 	{
-		cout << "Matrix in position " << viewChoice << ":" << endl;
+		cout << "\nMatrix in position " << viewChoice << ":" << endl;
 
 		for (size_t i = 1; i <= list[viewChoice - 1].GetRows(); ++i)
 		{

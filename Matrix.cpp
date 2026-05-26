@@ -1,4 +1,4 @@
-#include "matrix.h"
+#include "Matrix.h"
 #include "FunctionHub.h"
 
 #include <iostream>
@@ -17,12 +17,12 @@ Matrix::Matrix(size_t rows, size_t columns)
 	numberSet.resize(m_elementCount);
 }
 
-const int Matrix::GetRows()
+const size_t Matrix::GetRows()
 {
 	return m_rows;
 }
 
-const int Matrix::GetColumns()
+const size_t Matrix::GetColumns()
 {
 	return m_columns;
 }

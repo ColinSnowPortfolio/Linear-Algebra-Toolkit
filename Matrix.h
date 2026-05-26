@@ -2,17 +2,15 @@
 #define MATRIX_H
 
 #include <vector>
-#include "FunctionHub.h"
 
 using namespace std;
-
 
 class Matrix
 {
 public:
 	Matrix(size_t rows, size_t columns);
-	const int GetRows();
-	const int GetColumns();
+	const size_t GetRows();
+	const size_t GetColumns();
 	void New();
 	double& operator()(size_t row, size_t column);
 	const double& operator()(size_t row, size_t column) const;
